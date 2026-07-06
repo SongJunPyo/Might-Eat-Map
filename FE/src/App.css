@@ -1,0 +1,521 @@
+/* src/App.css */
+
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+
+.App-header {
+  background-color: white;
+  padding: 15px 15px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* ★★★ 이 줄을 추가하세요 ★★★ */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.main-content {
+  display: flex;
+  flex-grow: 1; /* 남은 공간을 모두 차지하도록 설정 */
+  overflow: hidden; /* 스크롤이 main-content 전체에 생기지 않도록 함 */
+  position: relative;
+}
+
+.sidebar {
+  width: 350px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  z-index: 5;
+  border-right: 1px solid #e0e0e0;
+  flex-shrink: 0;
+}
+
+.map-container {
+  flex-grow: 1; /* 남은 공간을 차지 */
+  height: 100%;
+  overflow: hidden;
+}
+
+#map {
+  position: relative;
+  overflow: hidden; /* 겹쳐 보이는 현상 방지 */
+}
+
+.video-container {
+  position: absolute;
+  left: 365px;
+  /* width: 600px; */
+  width: 25vw; /* 기본 너비를 화면 너비의 40%로 설정 */
+  min-width: 500px; /* 최소 너비는 500px로 유지 (너무 작아지는 것 방지) */
+  max-width: 650px; /* 최대 너비는 650px로 제한 (너무 커지는 것 방지) */
+  height: 96%;
+  z-index: 10;
+
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  background-color: #ffffff;
+  /* border-left: 1px solid #e0e0e0; */
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: flex-start; /* 콘텐츠를 위에서부터 정렬하도록 변경 */
+  /* padding-top: 0px; 상단 여백 추가 */
+  box-sizing: border-box;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  border-radius: 20px;
+}
+
+.search-box {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+  margin-right: 10px;
+  box-sizing: border-box;
+}
+
+.search-box button {
+  padding: 12px 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.place-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto; /* 목록이 길어지면 스크롤 생성 */
+  flex-grow: 1;
+}
+
+.place-item {
+  padding: 15px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.place-item:hover {
+  background-color: #f8f9fa;
+}
+
+.place-item h4 {
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.place-item p {
+  margin: 0;
+  font-size: 0.9em;
+  color: #777;
+}
+
+.empty-list {
+  padding: 20px;
+  text-align: center;
+  color: #888;
+}
+
+/* 커스텀 오버레이 기본 스타일 */
+.custom-overlay {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 5px 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transform: translateX(-50%);
+  position: relative;
+  white-space: nowrap; /* 내용이 줄바꿈되지 않도록 설정 */
+}
+
+/* 오버레이 꼬리표 모양 */
+.custom-overlay::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-top-color: white;
+  border-bottom: 0;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+}
+
+.custom-overlay .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #007BFF;
+  color: white;
+  font-size: 18px; /* 아이콘 크기 */
+  margin-right: 8px;
+}
+
+.custom-overlay .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.custom-overlay .title {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+.custom-overlay .category {
+  font-size: 12px;
+  color: #888;
+}
+
+/* 사이드바에서 목록 클릭 시 적용될 하이라이트 스타일 */
+.custom-overlay.focused {
+  border: 2px solid #FF0000; /* 빨간색 테두리로 강조 */
+  z-index: 10;
+}
+
+.place-details-container {
+  width: 100%;
+  height: auto;
+  max-height: 40vh;
+  flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
+  display: flex;
+  flex-direction: column;
+
+  padding: 25px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  margin-top: 20px; /* 비디오와의 간격 */
+  overflow-y: auto;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  border-radius: 20px;
+}
+
+.place-details-container h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.5em;
+  color: #000000;
+  text-align: left;
+}
+
+.place-details-container p {
+  font-size: 1em;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+/* YouTube Player 고정 크기 스타일 */
+.youtube-player {
+  flex-shrink: 0; /* 크기 고정 */
+  width: 100%;
+  margin-bottom: 10px; /* 하단 여백 추가 */
+}
+
+/* VideoControls 고정 위치 스타일 */
+.video-controls {
+  flex-shrink: 0; /* 크기 고정 */
+  margin-top: 10px; /* 상단 여백 추가 */
+  padding: 10px 0; /* 상하 패딩 추가 */
+}
+
+
+.top-right-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  /* width: 320px; */
+  width: 22vw; /* 기본 너비를 화면 너비의 22%로 설정 */
+  min-width: 300px; /* 최소 너비는 300px로 유지 */
+  max-width: 380px; /* 최대 너비는 380px로 제한 */
+  padding: 20px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  border-radius: 15px;
+}
+
+.top-right-container h3 {
+  margin-top: 0;
+  margin-bottom: 20px; /* 제목과 슬라이더 사이 간격 */
+  text-align: center;
+}
+
+/* ✅ 슬라이더 UI를 위한 새로운 CSS 스타일 추가 */
+
+.slider-group {
+  margin-bottom: 5px; /* 각 슬라이더 그룹 사이의 간격 */
+}
+
+.slider-group:last-child {
+  margin-bottom: 0;
+}
+
+.slider-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #333;
+}
+
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* 슬라이더와 숫자 사이 간격 */
+}
+
+.weight-slider {
+  -webkit-appearance: none; /* 기본 웹킷 스타일 제거 */
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #e9ecef; /* 슬라이더 바 배경색 */
+  border-radius: 5px;
+  outline: none;
+  opacity: 0.9;
+  transition: opacity .2s;
+}
+
+.weight-slider:hover {
+  opacity: 1; /* 호버 시 더 진하게 */
+}
+
+/* 슬라이더 핸들 (동그라미) - Webkit(크롬, 사파리) 브라우저용 */
+.weight-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #007BFF; /* 핸들 색상 */
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+/* 슬라이더 핸들 (동그라미) - Firefox 브라우저용 */
+.weight-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #007BFF;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.slider-value {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #007BFF;
+  min-width: 25px; /* 숫자가 1자리, 2자리가 되어도 정렬이 깨지지 않도록 */
+  text-align: center;
+}
+
+@media (max-width: 1400px) {
+  .video-container {
+    width: 38vw; /* 비디오 컨테이너 너비를 약간 줄임 */
+    min-width: 430px;
+  }
+  .top-right-container {
+    width: 25vw;
+  }
+}
+
+/* 화면 너비가 1200px 이하일 때 적용 */
+@media (max-width: 1200px) {
+    .video-container {
+        /* 화면이 너무 작아지면 비디오 컨테이너를 숨길 수도 있습니다. */
+        /* display: none; */
+        left: 360px;
+    }
+}
+
+.details-distance {
+  font-size: 0.85em;
+  font-weight: bold;
+  color: #d9534f; /* 붉은 계열 색상으로 강조 */
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+.close-video-button,
+.mobile-menu-button,
+.mobile-close-button {
+  display: none;
+}
+
+/* ✅ 모바일 환경을 위한 미디어 쿼리 */
+@media (max-width: 768px) {
+  /* --- 모바일 레이아웃의 기본 틀 --- */
+  .main-content {
+    display: block;
+  }
+
+  /* --- 지도 컨테이너: 화면 전체를 채우는 배경 --- */
+  .map-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* 가장 뒤 */
+  }
+
+  /* --- 비디오 컨테이너: 지도를 덮는 메인 화면 --- */
+  .video-container {
+    position: fixed; /* ✅ relative -> fixed 로 변경하여 화면 전체를 덮도록 수정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: 20; /* 지도보다 앞에 위치 */
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 모바일에서도 flex-start 사용 */
+    align-items: center;
+    padding: 60px 20px 20px 20px; /* 상단 패딩을 60px로 증가 */
+    box-sizing: border-box;
+    overflow-y: auto; /* 내용이 길어지면 스크롤 */
+  }
+
+  /* ✅ X 닫기 버튼 스타일 추가 - 긴 bar 형태 */
+  .close-video-button {
+    display: block; /* 모바일에서만 보이도록 */
+    position: absolute;
+    top: 30px; /* 15px에서 40px로 수정하여 더 아래로 내림 */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100; /* 비디오 플레이어보다 위에 위치 */
+
+    width: 100px;
+    height: 30px;
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    font-size: 0;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .close-video-button::before {
+    content: '';
+    width: 80px;
+    height: 6px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 3px;
+    transition: background-color 0.2s;
+  }
+
+  .close-video-button:hover::before {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+  /* ✅ 비디오 플레이스 홀더 높이 재정의 */
+  .video-placeholder {
+    width: 100%;
+    /* 높이를 % 또는 vw, vh 단위로 유연하게 설정 */
+    height: 30vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #888;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    margin: 10px;
+  }
+
+  /* ✅ 장소 정보 컨테이너의 모바일 스타일 재정의 */
+  .place-details-container {
+    box-shadow: none; /* 모바일에서는 그림자 제거 */
+    border-top: 1px solid #eee;
+    border-radius: 0;
+    margin-top: 10px;
+    padding: 15px;
+    max-height: 35vh; /* 높이 제한을 더 유연하게 */
+  }
+
+  /* --- 사이드바: 슬라이드 패널 (기존과 동일하지만 z-index 확인) --- */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 85%;
+    max-width: 320px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 4px 0px 15px rgba(0,0,0,0.2);
+    z-index: 1000; /* 비디오/지도보다 훨씬 위에 위치 */
+    transform: translateX(-100%); 
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* --- 모바일 메뉴(☰) 버튼 --- */
+  .mobile-menu-button {
+    display: block;
+    position: fixed;
+    top: 40px; /* 20px에서 40px로 수정하여 더 아래로 내림 */
+    left: 20px;
+    z-index: 999;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+  
+  /* --- 사이드바 닫기(X) 버튼 --- */
+  .mobile-close-button {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1001; 
+  }
+
+  /* --- 데스크톱에서만 보이는 설정 컨테이너 숨기기 --- */
+  .top-right-container {
+    display: none; 
+  }
+}

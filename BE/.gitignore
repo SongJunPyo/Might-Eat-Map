@@ -1,0 +1,13 @@
+hackenv/
+*.zip
+/db_pipeline/audios/
+/db_pipeline/gemini_output/
+/db_pipeline/comments/
+/db_pipeline/whisper_output/
+
+.env
+.mukbang_env/
+
+__pycache__/
+*.pyc
+*.log
