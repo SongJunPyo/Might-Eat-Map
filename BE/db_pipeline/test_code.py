@@ -17,16 +17,21 @@ from fun import *
 from transformers import pipeline
 from db_manager import db_manager as original_db_manager
 import math
+import os
+from dotenv import load_dotenv
 import analyze_module
+
+load_dotenv()  # .env 파일 로드
 
 class db_manager():
     def db_connect(self):
         try:
             self.conn = mysql.connector.connect(
-                host="10.100.54.75",  # MariaDB 서버 호스트
-                user="jinsoo",  # MariaDB 사용자 이름
-                password="UXUZtd.HM77DE/h!",  # MariaDB 사용자 비밀번호
-                database="youtube_ht"  # 사용할 데이터베이스 이름
+                host=os.getenv("DB_HOST"),  # MariaDB 서버 호스트
+                port=int(os.getenv("DB_PORT", "3306")),
+                user=os.getenv("DB_USER"),  # MariaDB 사용자 이름
+                password=os.getenv("DB_PASSWORD"),  # MariaDB 사용자 비밀번호
+                database=os.getenv("DB_NAME")  # 사용할 데이터베이스 이름
             )
 
             self.cursor = self.conn.cursor()

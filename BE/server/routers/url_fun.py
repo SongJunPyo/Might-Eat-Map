@@ -57,7 +57,7 @@ def get_gemini_response(script):
     """
  
     # The client gets the API key from the environment variable `GEMINI_API_KEY`.
-    client = genai.Client(api_key="AIzaSyANfTNaSQfd590goFaTcPoMzZaQEVb8pcI")
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
  
     response = client.models.generate_content(
         model="gemini-2.5-flash",

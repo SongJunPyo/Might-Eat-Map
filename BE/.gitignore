@@ -6,6 +6,8 @@ hackenv/
 /db_pipeline/whisper_output/
 
 .env
+.env.*
+!.env.example
 .mukbang_env/
 
 __pycache__/
